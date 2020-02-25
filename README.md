@@ -3,6 +3,10 @@
 ### Run and Build
 
 ```sh
-DATABASE_URL=postgres://postgres:postgres@localhost/diesel_demo cargo run
-```
+echo DATABASE_URL=postgres://postgres:postgres@localhost/diesel_demo > .env
 
+cargo install diesel_cli
+diesel run migration
+
+env $(cat .env | xargs) cargo run
+```
