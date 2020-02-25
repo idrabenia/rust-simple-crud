@@ -1,8 +1,8 @@
-### Simple CRUD Application with RUST
+## Simple CRUD Application with RUST
 
-## Run and Build
+### Run and Build
 
 ```sh
-cargo run
+DATABASE_URL=postgres://postgres:postgres@localhost/diesel_demo cargo run
 ```
 
