@@ -91,8 +91,8 @@ fn on_error(e: &Error) -> Status {
 }
 
 fn main() {
-	rocket::ignite()
+    rocket::ignite()
         .manage(connection::init_pool())
-		.mount("/", routes![index, create, list, update, delete])
-		.launch();
+        .mount("/", routes![index, create, list, update, delete])
+        .launch();
 }
