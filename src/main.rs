@@ -13,6 +13,8 @@ use rocket_hello::connection;
 use connection::DbConn;
 use log::{warn, error};
 use diesel::result::Error;
+use rocket::http::Method;
+use rocket_cors::{AllowedOrigins, CorsOptions};
 
 #[macro_use] extern crate rocket;
 extern crate rocket_hello;
@@ -91,7 +93,18 @@ fn on_error(e: &Error) -> Status {
 }
 
 fn main() {
+    let cors = CorsOptions::default()
+        .allowed_origins(AllowedOrigins::all())
+        .allowed_methods(
+            vec![Method::Get, Method::Post, Method::Delete]
+                .into_iter()
+                .map(From::from)
+                .collect(),
+        )
+        .allow_credentials(true);
+
     rocket::ignite()
+        .attach(cors.to_cors().unwrap())
         .manage(connection::init_pool())
         .mount("/", routes![index, create, list, update, delete])
         .launch();
